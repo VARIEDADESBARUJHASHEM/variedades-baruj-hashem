@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variedades Baruj Hashem</title>
+<style>
+body{
+font-family:Arial;
+margin:0;
+background:#f5f6fa;
+}
+
+header{
+background:#6a1b9a;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.hero{
+background:#2c3e50;
+color:white;
+padding:40px;
+text-align:center;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.button{
+background:#27ae60;
+color:white;
+padding:10px 15px;
+text-decoration:none;
+border-radius:6px;
+display:inline-block;
+margin-top:10px;
+}
+
+footer{
+background:#222;
+color:white;
+padding:15px;
+text-align:center;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Variedades Baruj Hashem</h1>
+<p>Librería · Perfumes · Joyas · Accesorios celulares · Carteras</p>
+</header>
+
+<section class="hero">
+<h2>Todo lo que necesitas en un solo lugar</h2>
+<p>Compra fácil y rápido por WhatsApp</p>
+<a class="button" href="https://wa.me/50585927298">Comprar por WhatsApp</a>
+</section>
+
+<section class="container">
+
+<div class="card">
+<h3>📚 Librería</h3>
+<p>Cuadernos, lapiceros, útiles escolares</p>
+<a class="button" href="https://wa.me/50585927298">Ver productos</a>
+</div>
+
+<div class="card">
+<h3>🌸 Perfumes</h3>
+<p>Fragancias para dama y caballero</p>
+<a class="button" href="https://wa.me/50585927298">Ver productos</a>
+</div>
+
+<div class="card">
+<h3>💎 Joyas</h3>
+<p>Aretes, pulseras y collares</p>
+<a class="button" href="https://wa.me/50585927298">Ver productos</a>
+</div>
+
+<div class="card">
+<h3>📱 Accesorios celulares</h3>
+<p>Cargadores, protectores y audífonos</p>
+<a class="button" href="https://wa.me/50585927298">Ver productos</a>
+</div>
+
+<div class="card">
+<h3>👜 Carteras</h3>
+<p>Modelos modernos y elegantes</p>
+<a class="button" href="https://wa.me/50585927298">Ver productos</a>
+</div>
+
+</section>
+
+<footer>
+Pedidos al WhatsApp: 8592-7298
+</footer>
+
+</body>
+</html>
