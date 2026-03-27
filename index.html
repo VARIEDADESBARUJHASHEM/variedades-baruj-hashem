@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Variedades Baruj Hashem</title>
 
 <style>
@@ -10,14 +12,23 @@
 body{
 font-family:Arial;
 margin:0;
-background:#f5f5f5;
+background:#f2f2f2;
 }
 
 header{
 background:black;
 color:white;
-text-align:center;
 padding:20px;
+text-align:center;
+}
+
+#buscador{
+width:80%;
+padding:10px;
+margin:20px auto;
+display:block;
+border-radius:5px;
+border:1px solid #ccc;
 }
 
 .productos{
@@ -28,9 +39,9 @@ justify-content:center;
 
 .producto{
 background:white;
-width:200px;
+width:220px;
 margin:15px;
-padding:10px;
+padding:15px;
 border-radius:10px;
 text-align:center;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
@@ -54,6 +65,16 @@ button:hover{
 background:#1ebe5d;
 }
 
+#carrito{
+position:fixed;
+top:10px;
+right:10px;
+background:white;
+padding:10px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
 </style>
 
 </head>
@@ -61,32 +82,71 @@ background:#1ebe5d;
 <body>
 
 <header>
+
 <h1>Variedades Baruj Hashem</h1>
 <p>Compra fácil y rápido</p>
+
 </header>
 
-<div class="productos">
+<input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="buscar()">
+
+<div id="carrito">
+🛒 Carrito: <span id="total">0</span>
+</div>
+
+<div class="productos" id="productos">
 
 <div class="producto">
 <img src="https://via.placeholder.com/200">
-<h3>Producto 1</h3>
-<p>C$200</p>
-<button onclick="comprar()">Comprar</button>
+<h3>Camiseta</h3>
+<p>C$250</p>
+<button onclick="agregar()">Agregar</button>
 </div>
 
 <div class="producto">
 <img src="https://via.placeholder.com/200">
-<h3>Producto 2</h3>
-<p>C$150</p>
-<button onclick="comprar()">Comprar</button>
+<h3>Gorra</h3>
+<p>C$180</p>
+<button onclick="agregar()">Agregar</button>
+</div>
+
+<div class="producto">
+<img src="https://via.placeholder.com/200">
+<h3>Mochila</h3>
+<p>C$500</p>
+<button onclick="agregar()">Agregar</button>
 </div>
 
 </div>
 
 <script>
-function comprar(){
-alert("Producto agregado al pedido");
+
+let total=0;
+
+function agregar(){
+total++;
+document.getElementById("total").innerText=total;
 }
+
+function buscar(){
+
+let input=document.getElementById("buscador").value.toLowerCase();
+let productos=document.getElementsByClassName("producto");
+
+for(let i=0;i<productos.length;i++){
+
+let texto=productos[i].innerText.toLowerCase();
+
+if(texto.includes(input)){
+productos[i].style.display="";
+}else{
+productos[i].style.display="none";
+}
+
+}
+
+}
+
 </script>
 
 </body>
