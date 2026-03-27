@@ -10,99 +10,123 @@
 <style>
 
 body{
-font-family:Arial;
 margin:0;
-background:#f5f5f5;
+font-family:Arial;
+background:#f4f6f9;
 }
 
 header{
-background:#111;
-color:white;
-padding:15px;
-text-align:center;
+background:white;
+padding:10px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
-#buscador{
-width:80%;
+.logo{
+display:flex;
+align-items:center;
+}
+
+.logo img{
+height:60px;
+margin-right:10px;
+}
+
+#buscar{
+width:40%;
 padding:10px;
-margin:20px auto;
-display:block;
 border-radius:6px;
 border:1px solid #ccc;
 }
 
 .categorias{
+background:#0046ff;
+color:white;
+padding:10px;
 text-align:center;
-margin:10px;
 }
 
 .categorias button{
 margin:5px;
-padding:8px 12px;
+padding:8px 14px;
 border:none;
-background:#ddd;
 border-radius:6px;
 cursor:pointer;
 }
 
 .productos{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+padding:20px;
+
 }
 
 .producto{
 
 background:white;
-width:220px;
-margin:15px;
-padding:15px;
 border-radius:10px;
+padding:15px;
 text-align:center;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
 
 }
 
 .producto img{
+
 width:100%;
 height:180px;
 object-fit:cover;
 border-radius:10px;
+
+}
+
+.precio{
+
+color:#0046ff;
+font-size:18px;
+font-weight:bold;
+
 }
 
 button{
+
 background:#25D366;
 color:white;
 border:none;
 padding:10px;
 border-radius:6px;
 cursor:pointer;
-}
 
-button:hover{
-background:#1ebe5d;
 }
 
 #carrito{
+
 position:fixed;
-top:10px;
-right:10px;
+top:15px;
+right:20px;
 background:white;
 padding:10px;
 border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.3);
+box-shadow:0 2px 10px rgba(0,0,0,0.2);
+
 }
 
 #whatsapp{
+
 position:fixed;
 bottom:20px;
 right:20px;
 background:#25D366;
 color:white;
-padding:15px;
+padding:16px;
 border-radius:50%;
 font-size:20px;
 cursor:pointer;
+
 }
 
 </style>
@@ -113,12 +137,16 @@ cursor:pointer;
 
 <header>
 
-<h1>Variedades Baruj Hashem</h1>
-<p>Tienda en línea</p>
+<div class="logo">
+
+<img src="logo.png">
+<h2>Variedades Baruj Hashem</h2>
+
+</div>
+
+<input id="buscar" placeholder="Buscar productos..." onkeyup="buscar()">
 
 </header>
-
-<input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="buscar()">
 
 <div class="categorias">
 
@@ -139,7 +167,7 @@ cursor:pointer;
 
 <div class="productos" id="productos"></div>
 
-<div id="whatsapp" onclick="enviarPedido()">
+<div id="whatsapp" onclick="pedido()">
 
 💬
 
@@ -151,11 +179,11 @@ let carrito=[];
 
 let productos=[
 
-{name:"Cuaderno",precio:80,categoria:"escolares",img:"https://via.placeholder.com/200"},
-{name:"Audífonos",precio:250,categoria:"celulares",img:"https://via.placeholder.com/200"},
-{name:"Perfume",precio:500,categoria:"perfumes",img:"https://via.placeholder.com/200"},
-{name:"Pulsera",precio:120,categoria:"joyas",img:"https://via.placeholder.com/200"},
-{name:"Labial",precio:150,categoria:"maquillaje",img:"https://via.placeholder.com/200"}
+{name:"Cuaderno escolar",precio:80,categoria:"escolares",img:"https://via.placeholder.com/200"},
+{name:"Audífonos bluetooth",precio:350,categoria:"celulares",img:"https://via.placeholder.com/200"},
+{name:"Perfume dama",precio:500,categoria:"perfumes",img:"https://via.placeholder.com/200"},
+{name:"Pulsera elegante",precio:120,categoria:"joyas",img:"https://via.placeholder.com/200"},
+{name:"Labial mate",precio:150,categoria:"maquillaje",img:"https://via.placeholder.com/200"}
 
 ];
 
@@ -175,9 +203,9 @@ contenedor.innerHTML+=`
 
 <h3>${p.name}</h3>
 
-<p>C$${p.precio}</p>
+<p class="precio">C$${p.precio}</p>
 
-<button onclick="agregar(${i})">Agregar</button>
+<button onclick="agregar(${i})">Agregar al carrito</button>
 
 </div>
 
@@ -197,7 +225,7 @@ document.getElementById("cantidad").innerText=carrito.length;
 
 function buscar(){
 
-let texto=document.getElementById("buscador").value.toLowerCase();
+let texto=document.getElementById("buscar").value.toLowerCase();
 
 let filtrados=productos.filter(p=>p.name.toLowerCase().includes(texto));
 
@@ -221,7 +249,7 @@ mostrar(filtrados);
 
 }
 
-function enviarPedido(){
+function pedido(){
 
 let mensaje="Hola quiero pedir:%0A";
 
