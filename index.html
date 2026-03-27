@@ -12,13 +12,13 @@
 body{
 font-family:Arial;
 margin:0;
-background:#f2f2f2;
+background:#f5f5f5;
 }
 
 header{
-background:black;
+background:#111;
 color:white;
-padding:20px;
+padding:15px;
 text-align:center;
 }
 
@@ -27,8 +27,22 @@ width:80%;
 padding:10px;
 margin:20px auto;
 display:block;
-border-radius:5px;
+border-radius:6px;
 border:1px solid #ccc;
+}
+
+.categorias{
+text-align:center;
+margin:10px;
+}
+
+.categorias button{
+margin:5px;
+padding:8px 12px;
+border:none;
+background:#ddd;
+border-radius:6px;
+cursor:pointer;
 }
 
 .productos{
@@ -38,6 +52,7 @@ justify-content:center;
 }
 
 .producto{
+
 background:white;
 width:220px;
 margin:15px;
@@ -45,10 +60,13 @@ padding:15px;
 border-radius:10px;
 text-align:center;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
+
 }
 
 .producto img{
 width:100%;
+height:180px;
+object-fit:cover;
 border-radius:10px;
 }
 
@@ -57,7 +75,7 @@ background:#25D366;
 color:white;
 border:none;
 padding:10px;
-border-radius:5px;
+border-radius:6px;
 cursor:pointer;
 }
 
@@ -72,7 +90,19 @@ right:10px;
 background:white;
 padding:10px;
 border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
+box-shadow:0 0 10px rgba(0,0,0,0.3);
+}
+
+#whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px;
+border-radius:50%;
+font-size:20px;
+cursor:pointer;
 }
 
 </style>
@@ -84,70 +114,131 @@ box-shadow:0 0 10px rgba(0,0,0,0.2);
 <header>
 
 <h1>Variedades Baruj Hashem</h1>
-<p>Compra fácil y rápido</p>
+<p>Tienda en línea</p>
 
 </header>
 
 <input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="buscar()">
 
+<div class="categorias">
+
+<button onclick="filtrar('todos')">Todos</button>
+<button onclick="filtrar('escolares')">Útiles escolares</button>
+<button onclick="filtrar('celulares')">Accesorios celular</button>
+<button onclick="filtrar('joyas')">Joyas</button>
+<button onclick="filtrar('perfumes')">Perfumes</button>
+<button onclick="filtrar('maquillaje')">Maquillaje</button>
+
+</div>
+
 <div id="carrito">
-🛒 Carrito: <span id="total">0</span>
+
+🛒 <span id="cantidad">0</span>
+
 </div>
 
-<div class="productos" id="productos">
+<div class="productos" id="productos"></div>
 
-<div class="producto">
-<img src="https://via.placeholder.com/200">
-<h3>Camiseta</h3>
-<p>C$250</p>
-<button onclick="agregar()">Agregar</button>
-</div>
+<div id="whatsapp" onclick="enviarPedido()">
 
-<div class="producto">
-<img src="https://via.placeholder.com/200">
-<h3>Gorra</h3>
-<p>C$180</p>
-<button onclick="agregar()">Agregar</button>
-</div>
-
-<div class="producto">
-<img src="https://via.placeholder.com/200">
-<h3>Mochila</h3>
-<p>C$500</p>
-<button onclick="agregar()">Agregar</button>
-</div>
+💬
 
 </div>
 
 <script>
 
-let total=0;
+let carrito=[];
 
-function agregar(){
-total++;
-document.getElementById("total").innerText=total;
+let productos=[
+
+{name:"Cuaderno",precio:80,categoria:"escolares",img:"https://via.placeholder.com/200"},
+{name:"Audífonos",precio:250,categoria:"celulares",img:"https://via.placeholder.com/200"},
+{name:"Perfume",precio:500,categoria:"perfumes",img:"https://via.placeholder.com/200"},
+{name:"Pulsera",precio:120,categoria:"joyas",img:"https://via.placeholder.com/200"},
+{name:"Labial",precio:150,categoria:"maquillaje",img:"https://via.placeholder.com/200"}
+
+];
+
+function mostrar(lista){
+
+let contenedor=document.getElementById("productos");
+
+contenedor.innerHTML="";
+
+lista.forEach((p,i)=>{
+
+contenedor.innerHTML+=`
+
+<div class="producto">
+
+<img src="${p.img}">
+
+<h3>${p.name}</h3>
+
+<p>C$${p.precio}</p>
+
+<button onclick="agregar(${i})">Agregar</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+function agregar(i){
+
+carrito.push(productos[i]);
+
+document.getElementById("cantidad").innerText=carrito.length;
+
 }
 
 function buscar(){
 
-let input=document.getElementById("buscador").value.toLowerCase();
-let productos=document.getElementsByClassName("producto");
+let texto=document.getElementById("buscador").value.toLowerCase();
 
-for(let i=0;i<productos.length;i++){
+let filtrados=productos.filter(p=>p.name.toLowerCase().includes(texto));
 
-let texto=productos[i].innerText.toLowerCase();
+mostrar(filtrados);
 
-if(texto.includes(input)){
-productos[i].style.display="";
+}
+
+function filtrar(cat){
+
+if(cat=="todos"){
+
+mostrar(productos);
+
 }else{
-productos[i].style.display="none";
-}
+
+let filtrados=productos.filter(p=>p.categoria==cat);
+
+mostrar(filtrados);
 
 }
 
 }
+
+function enviarPedido(){
+
+let mensaje="Hola quiero pedir:%0A";
+
+carrito.forEach(p=>{
+
+mensaje+=p.name+" C$"+p.precio+"%0A";
+
+});
+
+window.open("https://wa.me/50585927298?text="+mensaje);
+
+}
+
+mostrar(productos);
 
 </script>
 
 </body>
+
 </html>
